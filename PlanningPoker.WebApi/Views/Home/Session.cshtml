@@ -1,0 +1,57 @@
+@model PlanningPoker.WebApi.Models.Session
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>
+        Session - @Model.Id
+    </title>
+</head>
+<body>
+<div>
+    <h3>
+        Session - @Model.Id
+    </h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3>User marks:</h3>
+                <ul>
+                    @foreach (var user in Model.UserNamesAndMarks)
+                    {
+                        
+                        <li>
+                            @{
+                                var value = Model.IsHidden ? "***" : user.Value.ToString();
+                            }
+                            @user.Key : @value
+                        </li>
+                    }
+                    
+                </ul>
+                
+            </div>
+            <div class="col-1">
+                <ul>
+                    @foreach (var value in Model.DefinedMarks)
+                    {
+                        <li>
+                            @value
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" asp-controller="Session" asp-action="ToggleHidden" asp-route-id="@Model.Id">Unhide</a>
+    </div>
+</div>
+</body>
+</html>
